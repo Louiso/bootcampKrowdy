@@ -4,9 +4,11 @@ import Container from "@material-ui/core/Container";
 import Grid from "@material-ui/core/Grid";
 import {
   Avatar,
+  Breadcrumbs,
   Card,
   CardContent,
   CardHeader,
+  Link,
   List,
   ListItem,
   ListItemAvatar,
@@ -18,6 +20,7 @@ import {
   AccountCircleRounded as AccountIcon,
   HomeWorkRounded as HomeworkIcon,
   RefreshRounded as RefreshIcon,
+  Delete as DeleteIcon,
 } from "@material-ui/icons";
 
 const profile = {
@@ -58,8 +61,8 @@ const profile = {
 
 const useStyles = makeStyles({
   root: {
-    "background": "#EBEBEB",
-    "padding": "1rem",
+    background: "#EBEBEB",
+    padding: "1rem",
   },
   card: {
     background: "#ffffff",
@@ -67,41 +70,58 @@ const useStyles = makeStyles({
     "margin-bottom": "1rem",
     "box-shadow": "none",
   },
-  title: {
+  cardTitle: {
     "text-align": "left",
-    "padding": "1rem 2rem 0",
+    padding: "1rem 2rem 0",
   },
-  content: {
+  cardContent: {
     "padding-top": "0",
     "padding-bottom": "0 !important",
   },
-  avatar: {
-    "background": "none",
-    "color": "#E3E3E3",
-    "width": "100px",
-    "height": "100%",
-    "left": "1em",
-    "position": "relative",
-    "top": "1.5rem",
+  breadcrumContainer: {
+    padding: "1rem",
   },
-  name: {
+  profileName: {
     "text-align": "left",
     "text-decoration": "underline",
-    "padding": "1.5rem 2rem",
+    padding: "1.5rem 2rem",
     "margin-top": "0.5rem",
   },
-  icon: {
-    "width": "100%",
-    "height": "100%",
+  avatarIcon: {
+    width: "100%",
+    height: "100%",
   },
-  refresh: {
-    "background": "none",
-    "color": "#0A66C2"
+  avatarIconContainer: {
+    background: "none",
+    color: "#E3E3E3",
+    width: "100px",
+    height: "100%",
+    left: "1em",
+    position: "relative",
+    top: "1.5rem",
   },
-  refreshIconContainer: {
+  deleteIconContainer: {
+    background: "none",
+    color: "#E07070",
+    width: "100%",
+  },
+  deleteIcon: {
+    "font-size": "1.8rem"
+  },
+  actionContainer: {
+    "padding-top": "0 !important",
+  },
+  profileActionContainer: {
     "justify-content": "center",
     "align-items": "center",
-    "display": "flex",
+    display: "flex",
+  },
+  refreshIconContainer: {
+    background: "none",
+    color: "#0A66C2",
+  },
+  refreshIcon: {
+    "font-size": "1.8rem"
   }
 });
 
@@ -111,30 +131,52 @@ function App() {
   return (
     <div className="App">
       <Container className={classes.root}>
+        <Container className={classes.breadcrumContainer}>
+          <Grid container spacing={2}>
+            <Grid item xs={10}>
+              <Breadcrumbs aria-label="breadcrumb">
+                <Typography></Typography>
+                <Link href="/">profile</Link>
+                <Link href="/">1</Link>
+                <Link href="/">list</Link>
+                <Link href="/">1</Link>
+                <Link href="/">profile</Link>
+                <Link href="/">2</Link>
+              </Breadcrumbs>
+            </Grid>
+            <Grid item xs={2} className={classes.actionContainer}>
+              <Avatar className={classes.deleteIconContainer}>
+                <DeleteIcon className={classes.deleteIcon}/>
+              </Avatar>
+            </Grid>
+          </Grid>
+        </Container>
+
         <Card className={classes.card}>
           <Grid container spacing={2}>
-            <Grid item xs={12} className={classes.test}>
-              <Avatar className={classes.avatar}>
-                <AccountIcon className={classes.icon} />
+            <Grid item xs={12}>
+              <Avatar className={classes.avatarIconContainer}>
+                <AccountIcon className={classes.avatarIcon} />
               </Avatar>
             </Grid>
           </Grid>
           <Grid container spacing={2}>
-            <Grid item xs={8} className={classes.test}>
-              <CardHeader title={profile.name} className={classes.name} />
+            <Grid item xs={9} md={10}>
+              <CardHeader
+                title={<Typography variant="h5">{profile.name}</Typography>}
+                className={classes.profileName}
+              />
             </Grid>
-            <Grid item xs={4} className={classes.refreshIconContainer}>
-              <Avatar className={classes.refresh}>
-                <RefreshIcon />
+            <Grid item xs={3} md={2} className={classes.profileActionContainer}>
+              <Avatar className={classes.refreshIconContainer}>
+                <RefreshIcon className={classes.refreshIcon}/>
               </Avatar>
             </Grid>
           </Grid>
-
-          
         </Card>
         <Card className={classes.card}>
-          <CardHeader title="Experiencias" className={classes.title} />
-          <CardContent className={classes.content}>
+          <CardHeader title="Experiencias" className={classes.cardTitle} />
+          <CardContent className={classes.cardContent}>
             <List>
               {profile.experiences.map((experience, index) => {
                 return (
@@ -171,8 +213,8 @@ function App() {
           </CardContent>
         </Card>
         <Card className={classes.card}>
-          <CardHeader title="Estudios" className={classes.title} />
-          <CardContent className={classes.content}>
+          <CardHeader title="Estudios" className={classes.cardTitle} />
+          <CardContent className={classes.cardContent}>
             <List>
               {profile.education.map((education, index) => {
                 return (
