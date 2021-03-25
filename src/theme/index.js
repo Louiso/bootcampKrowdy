@@ -47,6 +47,14 @@ const theme = createMuiTheme({
       light: secondary[300],
       main: secondary[500],
       dark: secondary[800]
+    },
+    typography: {
+      body1: {
+        fontSize: 12
+      },
+      h6: {
+        fontSize: 14
+      }
     }
   }
 })
